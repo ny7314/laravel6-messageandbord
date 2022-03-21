@@ -18,12 +18,12 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: ****
-      MYSQL_USER: ****
-      MYSQL_PASSWORD: ****
-      MYSQL_ROOT_PASSWORD: ****
+      MYSQL_DATABASE: messagebord
+      MYSQL_USER: yagunori
+      MYSQL_PASSWORD: yagunori
+      MYSQL_ROOT_PASSWORD: yagunori
     ports:
-      - "3306:3306"
+      - "4306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 volumes:
