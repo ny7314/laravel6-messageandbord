@@ -51,10 +51,10 @@ class MessageController extends Controller
             $data['user_id'] = Auth::id();
             $this->message_service->createNewMessage($data, $id);
         } catch (Exception $error){
-            return redirect()->route('threads.index')->with('error', 'メッセージの投稿に失敗しました。');
+            return redirect()->route('threads.show', $id)->with('error', 'メッセージの投稿に失敗しました。');
         }
 
-        return redirect()->route('threads.index')->with('success', 'メッセージを投稿しました。');
+        return redirect()->route('threads.show', $id)->with('success', 'メッセージを投稿しました。');
     }
 
     /**
