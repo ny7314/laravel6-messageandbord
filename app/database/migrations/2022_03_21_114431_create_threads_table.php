@@ -16,7 +16,7 @@ class CreateThreadsTable extends Migration
         Schema::create('threads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
+            $table->string('thread_title');
             $table->boolean('is_user_checked')->default(false);
             $table->timestamp('latest_comment_time');
             $table->timestamps();

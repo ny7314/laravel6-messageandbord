@@ -106,7 +106,7 @@ return [
     'prohibited_unless'    => ':attributeフィールドは、:otherが:valuesでない限り禁止されています。',
     'prohibits'            => 'The :attribute field prohibits :other from being present.',
     'regex'                => ':attributeには、有効な正規表現を指定してください。',
-    'required'             => ':attributeは、必ず指定してください。',
+    'required'             => ':attributeは、必ず入力してください。',
     'required_array_keys'  => 'The :attribute field must contain entries for: :values.',
     'required_if'          => ':otherが:valueの場合、:attributeを指定してください。',
     'required_unless'      => ':otherが:values以外の場合、:attributeを指定してください。',
@@ -137,5 +137,7 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'thread_title' => '投稿タイトル',
+        'content' => '投稿の内容',
     ],
 ];
