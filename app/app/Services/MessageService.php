@@ -23,7 +23,7 @@ class MessageService
     DB::beginTransaction();
     try {
       $thread = $this->thread_repository->findById($thread_id);
-      $thread->messages()->create($data);
+      $message = $thread->messages()->create($data);
       $this->thread_repository->updateTime($thread_id);
     } catch (Exception $error){
       DB::rollBack();
@@ -31,7 +31,7 @@ class MessageService
       throw new Exception($error->getMessage());
     }
     DB::commit();
-    return $thread;
+    return $message;
   }
 
   public function convertUrl(string $message)
