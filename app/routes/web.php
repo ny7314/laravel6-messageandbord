@@ -20,3 +20,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/threads', 'ThreadController')->except(['create', 'update']);
 Route::resource('/threads/{thread}/messages', 'MessageController')->except(['create', 'update']);
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+    Route::post('login', 'Admin\LoginController@login');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function(){
+    Route::get('home', 'Admin\HomeController@index')->name('admin.home');
+});
