@@ -26,7 +26,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ $loop->iteration }} {{ $message->user->name }}：{{ $message->created_at }}</h5>
               <p class="card-text">{!! $message_service->convertUrl($message->body) !!}</p>
-              <div class="row">
+              <div class="row mb-3">
                 @if (!$message->images->isEmpty())
                   @foreach ($message->images as $image)
                     <div class="col-md-3">
@@ -35,14 +35,12 @@
                   @endforeach
                 @endif
               </div>
+              @include('components.message-delete', compact('thread', 'message'))
             </div>
           @endforeach
           <div class="card-footer">
             @include('components.message-create', compact('thread'))
-            <a href="{{ route('threads.show', $thread->id) }}">全部読む</a>
-            <a href="{{ route('threads.show', $thread->id) }}">最新50</a>
-            <a href="{{ route('threads.show', $thread->id) }}">1~100</a>
-            <a href="{{ route('threads.index') }}">リロード</a>
+            @include('components.show-links', compact('thread'))
           </div>
         </div>
       </div>
@@ -54,7 +52,7 @@
       <div class="card">
         <h5 class="card-header">新規投稿作成</h5>
         <div class="card-body">
-          <form method="POST" action="{{ route('threads.store') }}">
+          <form method="POST" action="{{ route('threads.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
               <label for="thread-title">投稿タイトル</label>
@@ -64,6 +62,10 @@
               <label for="thread-first-content">内容</label>
               <textarea name="content" id="thread-first-content" class="form-control" rows="3" required></textarea>
             </div>
+            {{-- <div class="form-group">
+              <label for="message-images">画像</label>
+              <input type="file" class="form-control-file" id="message-images" name="images[]" multiple>
+            </div> --}}
             <button type="submit" class="btn btn-primary">投稿する</button>
           </form>
         </div>

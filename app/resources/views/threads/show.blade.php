@@ -10,7 +10,7 @@
       <h3>{{ $thread->thread_title }}</h3>
     </div>
     <div class="col-md-10 mb-3">
-      <a href="{{ route('threads.index') }}" class="btn btn-primary">掲示板に戻る</a>
+      @include('components.thread-index-back')
     </div>
   </div>
   <div class="row justify-content-center">
@@ -29,6 +29,7 @@
               @endforeach
             @endif
           </div>
+          @include('components.message-delete', compact('thread', 'message'))
         </div>
       </div>
       @endforeach

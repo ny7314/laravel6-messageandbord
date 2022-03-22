@@ -17,4 +17,15 @@ class MessageRepository
   {
     return $this->message->create($data);
   }
+
+  public function findById(int $id)
+  {
+    return $this->message->find($id);
+  }
+
+  public function deleteMessage(int $id)
+  {
+    $message = $this->findById($id);
+    return $message->delete();
+  }
 }
