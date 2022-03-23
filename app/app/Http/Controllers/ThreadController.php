@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\ThreadRequest;
-use App\Services\ThreadService;
-use App\Repositories\ThreadRepository;
-use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Http\Request;
+use App\Services\ThreadService;
+use App\Http\Requests\ThreadRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\ThreadRepository;
+use App\Services\SlackNotificationService;
+use App\Notifications\SlackNotification;
+
 
 class ThreadController extends Controller
 {
@@ -15,14 +18,18 @@ class ThreadController extends Controller
 
     protected $thread_repository;
 
+    protected $slack_notification_service;
+
     public function __construct(
         ThreadService $thread_service,
-        ThreadRepository $thread_repository
+        ThreadRepository $thread_repository,
+        SlackNotificationService $slack_notification_service
     )
     {
         $this->middleware('auth')->except('index');
         $this->thread_service = $thread_service;
         $this->thread_repository = $thread_repository;
+        $this->slack_notification_service = $slack_notification_service;
     }
     /**
      * Display a listing of the resource.
@@ -59,10 +66,10 @@ class ThreadController extends Controller
                 ['thread_title', 'content']
             );
             $this->thread_service->createNewThread($data, Auth::id());
+            $this->slack_notification_service->send(Auth::user()->name . '　が　' . $request->thread_title . '　を投稿しました！');
         } catch (Exception $error) {
             return redirect()->route('threads.index')->with('error', '新規投稿に失敗しました。');
         }
-
         return redirect()->route('threads.index')->with('success', '新規投稿が完了しました。');
     }
 
