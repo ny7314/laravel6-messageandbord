@@ -61,4 +61,11 @@ class ThreadService
       'thread_id' => $thread_id
     ];
   }
+
+  public function getThreads(int $per_page)
+  {
+    $threads = $this->thread_repository->getPaginatedThreads($per_page);
+    $threads->load('user', 'messages.user');
+    return $threads;
+  }
 }

@@ -4,21 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Image extends Model
 {
-    protected $table = 'messages';
+    protected $table = 'images';
 
     protected $fillable = [
-        'body', 'thread_id', 'user_id'
+        'message_id',
+        's3_file_path',
     ];
 
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-
-    public function images()
-    {
-        return $this->hasMany('App\Image');
     }
 }
